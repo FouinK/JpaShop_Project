@@ -1,7 +1,7 @@
 spring:
   #없어도 메모리모드로 실행됨
   datasource:
-    url: jdbc:h2:mem:test #메모리 디비 유알엘 ./h2.sh 안 해도 됨
+    url: jdbc:h2:tcp://localhost/~/jpashop #jdbc:h2:mem:test #메모리 디비 유알엘 ./h2.sh 안 해도 됨
     username: sa
     password:
     driver-class-name: org.h2.Driver
