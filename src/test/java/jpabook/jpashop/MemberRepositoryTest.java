@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 public class MemberRepositoryTest {
     @Autowired
-    MemberRepository memberRepository;
-
+    MemberRepository1 memberRepository;
     @Test
     @Transactional              //없으면 트렌잭션 에러남.
     @Rollback(value = false)     //주석을 제거하게 되면(또는 value = true) 쿼리문이 생기지 않음 이유는 트랜잭션의 특성상 commit을 마치고 query log를 찍어주기 때문에
@@ -20,7 +19,7 @@ public class MemberRepositoryTest {
 
         //given
         Member member = new Member();
-        member.setUsername("memberA");
+        member.setName("memberA");
 
         //when
         Long saveId = memberRepository.save(member);
@@ -28,7 +27,7 @@ public class MemberRepositoryTest {
 
         //then
         Assertions.assertEquals(findMember.getId(), member.getId());
-        Assertions.assertEquals(findMember.getUsername(), member.getUsername());
+        Assertions.assertEquals(findMember.getName(), member.getName());
         Assertions.assertEquals(findMember, member);
 
     }
