@@ -14,7 +14,7 @@ public class ItemRepository {
     private final EntityManager em;
 
     public Long save(Item item) {
-        if (item.getId() != null) {
+        if (item.getId() == null) {
             em.persist(item);
             return item.getId();
         } else {
