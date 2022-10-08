@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -15,6 +17,7 @@ import static javax.persistence.FetchType.*;
 @Table(name = "orders")
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id
     @GeneratedValue
@@ -25,7 +28,7 @@ public class Order {
     @JoinColumn(name = "member_id")     //FK 이름
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = ALL)
+    @OneToMany(mappedBy = "order", cascade = ALL)           //케스케이드 all 하면 order만 저장해도 연관관계의 테이블의 값까지 같이 저장 됨
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = ALL)
@@ -52,6 +55,10 @@ public class Order {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
+
+    /**
+     * 아래 부터 도메인 모델 패턴 적용
+     */
 
     //==생성 메서드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {

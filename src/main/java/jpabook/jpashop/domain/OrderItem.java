@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
 
@@ -12,6 +14,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)  //생서자를 프로텍티드 형식으로 마들어 다른곳에서 기본생성자 사용을 금함.
 public class OrderItem {
 
     @GeneratedValue
@@ -30,6 +33,10 @@ public class OrderItem {
     private int orderPrice;     //주문 가격
 
     private int count;          //주문 수량
+
+    /**
+     * 아래 부터 도메인 모델 패턴 적용
+     */
 
     //==생성 메서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
