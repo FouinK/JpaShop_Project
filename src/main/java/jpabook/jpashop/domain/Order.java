@@ -95,7 +95,7 @@ public class Order {
      *
      * @return
      */
-    public int setTotalPrice() {
+    public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {
 

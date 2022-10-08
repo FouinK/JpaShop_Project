@@ -23,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 //	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'		//쿼리 로그에 파라미터를 내용까지 찎어주는 외부라이브러리
 	//외부라이브러리를 운영서버에 사용시 성능테스트를 거친 후 문제가 없다고 판단 될 때만 사용
 	//외부라이브러리가 성능저하에 원인이 될 수 있음
