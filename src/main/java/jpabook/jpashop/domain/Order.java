@@ -19,6 +19,7 @@ import static javax.persistence.FetchType.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
+
     @Id
     @GeneratedValue
     @Column(name = "order_id")

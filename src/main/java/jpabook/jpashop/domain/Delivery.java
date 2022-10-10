@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
+    @JsonIgnore     //JSON에서 빼줌 (무한루프 일어나지 않도록 미연에 방지 JsonBack이랑은 다름)
     @OneToOne(mappedBy = "delivery",fetch = LAZY)
     private Order order;
 
