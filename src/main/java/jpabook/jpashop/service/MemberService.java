@@ -54,6 +54,11 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+    /**
+     * 어노테이션 트랜잭셔널이 있기 때문에 바로 따로 저장하지 않아도 저장
+     * @param id
+     * @param name
+     */
     @Transactional
     public void update(Long id, String name) {
         Member findMember = memberRepository.findOne(id);

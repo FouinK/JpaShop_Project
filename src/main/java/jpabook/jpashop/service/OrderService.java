@@ -70,7 +70,7 @@ public class OrderService {
      * 주문 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch) {
-        List<Order> orderList = orderRepository.findAllByCriteria(orderSearch);
+        List<Order> orderList = orderRepository.findAll(orderSearch);
         return orderList;
     }
 
