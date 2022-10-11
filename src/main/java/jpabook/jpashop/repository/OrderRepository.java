@@ -57,8 +57,43 @@ public class OrderRepository {
         return em.createQuery(
                 "select o from Order o" +
                         " join fetch o.member m" +
-                        " join fetch o.delivery d", Order.class).getResultList();
+                        " join fetch o.delivery d", Order.class)
+                .getResultList();
     }
 
+
+    /**
+     * jpa의 distinct는 id값이 같은 것 까지 중복 제거를 해주지만
+     * 실제 dbSQL은 한 컬럼이 아예 같은 것만 제거해주기 때문에 실제 sql을 찍어보면 다름.
+     * @return
+     */
+    public List<Order> findAllWithItem() {
+        //
+        //
+        return em.createQuery(
+
+                "select distinct o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi " +
+                        "join fetch oi.item i", Order.class)
+                .getResultList();
+    }
+
+    /**
+     * ToOne 관계의 페이징 쿼리문은 더 많다 . 하지만 trade off 를 생각해서 뭐가 더 좋은지 생각하면 됨.
+     * @param offset
+     * @param limit
+     * @return
+     */
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 
 }
