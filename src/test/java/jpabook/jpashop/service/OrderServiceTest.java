@@ -1,9 +1,6 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderStatus;
+import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
@@ -15,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -62,7 +60,7 @@ public class OrderServiceTest {
             orderService.order(member.getId(), book.getId(), orderCount);
         } catch (NotEnoughStockException e) {
             e.printStackTrace();
-            return ;
+            return;
         }
 
         Assertions.fail("상품 재고수량 예와가 발생해야함");
@@ -108,5 +106,56 @@ public class OrderServiceTest {
         em.persist(member);
         em.flush();
         return member;
+    }
+
+
+    @Test
+    public void OrderFindOneTest() {
+
+        long startTime = System.currentTimeMillis();
+
+
+        List<Order> all = orderRepository.findAll();
+
+
+        for (Order order : all) {
+            order.getId();
+            order.getMember().getId();
+            order.getDelivery().getId();
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+                orderItem.getId();
+            }
+        }
+
+        long stopTime = System.currentTimeMillis();
+        System.out.println("no fetch join result time");
+        System.out.println("걸린 시간 : "+(stopTime - startTime) + "ms");
+
+
+    }
+
+    @Test
+    public void FetchJoinOrderFindOneTest() {
+
+        long startTime = System.currentTimeMillis();
+
+        List<Order> all = orderRepository.findAll_fetch_join();
+
+
+        for (Order order : all) {
+            order.getId();
+            order.getMember().getId();
+            order.getDelivery().getId();
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+                orderItem.getId();
+            }
+        }
+
+        long stopTime = System.currentTimeMillis();
+        System.out.println("fetch join result time");
+        System.out.println("걸린 시간 : "+(stopTime - startTime) + "ms");
+
     }
 }

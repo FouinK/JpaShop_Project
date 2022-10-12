@@ -13,11 +13,11 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 
-@Entity
 @Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 public class Order {
 
     @Id
@@ -60,7 +60,6 @@ public class Order {
     /**
      * 아래 부터 도메인 모델 패턴 적용
      */
-
     //==생성 메서드==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
@@ -90,7 +89,6 @@ public class Order {
     }
 
     //==조회 로직==//
-
     /**
      * 전체 주문 가격 조회
      *
